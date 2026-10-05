@@ -1,4 +1,5 @@
 # 照服員術科練習本
+<img width="958" height="737" alt="image" src="https://github.com/user-attachments/assets/6931362c-dedd-428e-8d96-aa6aec4d649f" />
 
 長期照顧服務員單一級術科技術士考試的手機練習網頁。
 
