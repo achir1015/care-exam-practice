@@ -14,6 +14,8 @@
 | 路徑 | 說明 |
 |---|---|
 | `index.html` | 主程式（單一 HTML，直接開啟即可） |
+| `favicon.ico`、`icon-*.png`、`apple-touch-icon.png` | 網址列圖示與手機主畫面捷徑圖示 |
+| `manifest.webmanifest` | 加到主畫面後的名稱、顏色、圖示設定 |
 | `tools_split_pdf.py` | 切檔工具：依目錄頁碼把攻略 PDF 切成各題單頁 PDF（自用，產出檔案不放進本專案） |
 
 ## 攻略頁碼對照
