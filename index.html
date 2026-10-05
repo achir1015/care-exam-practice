@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>照服員術科練習本</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;900&display=swap">
+<style>
+/* 版面概念：像一本「護理技術口袋卡」— 首頁是題目索引卡，點進去是可勾選的操作步驟卡 */
+:root{
+  --bg:#F3F6F5; --paper:#FFFFFF; --ink:#18302D; --muted:#5B6E6B; --line:#D7E1DE;
+  --accent:#0E6B61; --accent-soft:#DCEFEB; --warn:#B4441B; --warn-soft:#FBE9E1; --mark:#FFF1B8;
+  --f-display:"Noto Serif TC","Songti TC",serif; --f-body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F1A19; --paper:#162523; --ink:#E4EEEC; --muted:#93A8A4; --line:#2A3D3A;
+  --accent:#5CC3B5; --accent-soft:#1C3A36; --warn:#F08A62; --warn-soft:#3A2219; --mark:#5A4B12; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1A19; --paper:#162523; --ink:#E4EEEC; --muted:#93A8A4; --line:#2A3D3A;
+  --accent:#5CC3B5; --accent-soft:#1C3A36; --warn:#F08A62; --warn-soft:#3A2219; --mark:#5A4B12; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.7;padding:0 16px 48px}
+.wrap{max-width:760px;margin:0 auto}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:14px 10px;margin:0 -16px;padding-inline:16px;border-bottom:1px solid var(--line)}
+.top{display:flex;align-items:center;gap:10px;max-width:760px;margin:0 auto}
+h1{font-family:var(--f-display);font-weight:900;font-size:1.25rem;margin:0;flex:1;letter-spacing:.02em}
+h1 small{display:block;font-family:var(--f-body);font-weight:400;font-size:.75rem;color:var(--muted);letter-spacing:.08em}
+.search{max-width:760px;margin:10px auto 0;position:relative}
+.search input{width:100%;font:inherit;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink)}
+.search input:focus{outline:2px solid var(--accent);outline-offset:1px}
+button,a.btn{font:inherit;cursor:pointer}
+.back{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:8px;padding:6px 12px}
+.back:focus-visible,.card:focus-visible,a.btn:focus-visible,.tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.intro{margin:18px 0 8px;color:var(--muted);font-size:.92rem}
+.list{display:grid;gap:10px;margin-top:10px}
+.card{display:grid;grid-template-columns:3.2rem 1fr auto;gap:12px;align-items:center;text-align:left;width:100%;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px;color:var(--ink)}
+.no{font-family:var(--f-display);font-weight:900;font-size:1.6rem;color:var(--accent);font-variant-numeric:tabular-nums;text-align:center}
+.card b{display:block;font-size:1.05rem}
+.card span{color:var(--muted);font-size:.85rem}
+.prog{font-size:.8rem;color:var(--accent);font-variant-numeric:tabular-nums;white-space:nowrap}
+.sec-title{font-family:var(--f-display);font-size:1.1rem;margin:28px 0 8px}
+.common{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.common ul{margin:6px 0 0;padding-left:1.2em}
+/* 詳細頁 */
+.d-head{margin:18px 0 6px}
+.d-head .no{text-align:left;font-size:1rem}
+.d-head h2{font-family:var(--f-display);font-weight:900;font-size:1.6rem;margin:0;text-wrap:balance}
+.d-head p{margin:4px 0 0;color:var(--muted)}
+.media{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+a.btn,button.btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;border-radius:999px;padding:8px 14px;font-size:.92rem;font-weight:500}
+.btn.v{background:var(--accent);color:var(--paper)}
+.btn.p{background:var(--accent-soft);color:var(--accent)}
+.pdfnote{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.88rem;color:var(--muted);margin-bottom:6px}
+.pdfnote input{width:5.5em;font:inherit;padding:4px 8px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink)}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-top:16px;overflow-x:auto}
+.tab{border:0;background:none;color:var(--muted);padding:10px 14px;border-bottom:3px solid transparent;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--accent);border-color:var(--accent);font-weight:700}
+.phase{margin-top:18px}
+.phase h3{font-size:.8rem;letter-spacing:.12em;color:var(--muted);margin:0 0 6px;font-weight:700}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.step{display:grid;grid-template-columns:1.6rem 1fr;gap:10px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer}
+.step input{width:1.2rem;height:1.2rem;margin-top:.25rem;accent-color:var(--accent)}
+.step.done{opacity:.55}
+.step.done .t{text-decoration:line-through}
+.step .why{display:block;color:var(--muted);font-size:.85rem}
+.step.key{border-left:4px solid var(--warn)}
+.bar{height:6px;background:var(--line);border-radius:6px;overflow:hidden;margin:14px 0 4px}
+.bar i{display:block;height:100%;background:var(--accent);transition:width .3s}
+.barrow{display:flex;justify-content:space-between;font-size:.85rem;color:var(--muted)}
+.reset{border:0;background:none;color:var(--accent);text-decoration:underline;padding:0}
+.box{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:14px}
+.box.w{background:var(--warn-soft);border-color:transparent}
+.box h4{margin:0 0 6px;font-size:1rem}
+.box.w h4{color:var(--warn)}
+.box ul{margin:0;padding-left:1.2em}
+.tbl{overflow-x:auto;margin-top:14px}
+table{border-collapse:collapse;width:100%;background:var(--paper);font-size:.92rem}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;font-variant-numeric:tabular-nums}
+th{background:var(--accent-soft);color:var(--ink)}
+mark{background:var(--mark);color:inherit;border-radius:3px}
+.hit{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 14px;text-align:left;width:100%;color:var(--ink)}
+.hit small{color:var(--accent);font-weight:700}
+.empty{color:var(--muted);padding:20px 0}
+.pages{display:grid;gap:14px;margin-top:14px}
+.pg{margin:0;background:var(--paper);border:1px solid var(--line);border-radius:10px;overflow:auto}
+.pg img{display:block;width:100%;height:auto;cursor:zoom-in;background:#fff}
+.pg.zoom img{width:220%;max-width:none;cursor:zoom-out}
+.pg figcaption{font-size:.8rem;color:var(--muted);padding:6px 10px;border-top:1px solid var(--line);font-variant-numeric:tabular-nums;position:sticky;left:0}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{font-size:.8rem;border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:2px 10px;color:var(--muted);font-variant-numeric:tabular-nums}
+.chip.must{background:var(--warn-soft);color:var(--warn);border-color:transparent;font-weight:700}
+.foot{margin-top:36px;font-size:.8rem;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="top">
+    <button class="back" id="backBtn" hidden>← 題目</button>
+    <h1>照服員術科練習本<small>單一級 · 7 題標準流程 × 示範影片</small></h1>
+  </div>
+  <div class="search"><input id="q" type="search" placeholder="搜尋：例如 健側、30:2、水溫、尿袋…" aria-label="搜尋步驟與重點"></div>
+</header>
+<main class="wrap" id="app"></main>
+
+<script>
+// ===== 領域模型 =====
+// 一個「考題 Station」= 編號 + 名稱 + 影片 + 三階段步驟（準備 / 操作 / 結束）+ 重點 + 易錯
+// 一個「步驟 Step」= 文字 t + 說明 why + 是否為關鍵(容易被扣分) key
+const DRIVE = id => `https://drive.google.com/file/d/${id}/view`;
+const PDF_ID = "1FrUDDZjG_EnetFr6k_O8V83zbeKwbhdu";
+const FOLDER = "https://drive.google.com/drive/folders/1v61NOv117HAkmryiFoScFsxIVH5jXg-1";
+
+// 共通技術：洗手（攻略第 16–18 頁）
+const HANDWASH = {no:"00", name:"共通技術：洗手", book:[16,18]};
+// 攻略頁面圖片：pages/sNN-PP.jpg（每題從 01 開始編號）
+const pageImgs = st => Array.from({length: st.book[1]-st.book[0]+1}, (_,i)=>({
+  src:`pages/s${st.no}-${String(i+1).padStart(2,"0")}.jpg`, book: st.book[0]+i }));
+
+// 每題共通的「開始」與「結束」動作（考場常見評分項目）
+const COMMON_START = [
+  {t:"洗手（內、外、夾、弓、大、立、腕）", why:"開始操作前先洗手，濕、搓、沖、捧、擦", key:true},
+  {t:"核對個案：詢問姓名並核對床頭卡／手圈", why:"確認對的人", key:true},
+  {t:"向個案自我介紹，說明目的與過程", why:"取得同意與合作"},
+  {t:"準備並檢查用物，放在方便取用處", why:""},
+  {t:"注意隱私與安全：關門窗、拉床簾、拉起床欄", why:""}
+];
+const COMMON_END = [
+  {t:"協助個案採舒適姿勢，拉起床欄", why:""},
+  {t:"整理用物、歸位", why:""},
+  {t:"洗手", why:"", key:true},
+  {t:"記錄並回報異常狀況", why:"說出：「有異常會立即報告護理人員」", key:true}
+];
+
+const STATIONS = [
+ {no:"01", code:"17800-111401", mins:20, must:true, book:[19,36], name:"生命徵象測量", sub:"體溫、脈搏、呼吸、血壓", videos:[["示範影片","1oeBIEE7dV8X6LMv1ZTUvazhpSRj6Wb4X"]],
+  steps:[
+   {t:"測量前確認個案休息 15–30 分鐘，未進食、運動、洗澡", why:"避免數值失真"},
+   {t:"體溫：耳溫槍套上耳套，耳朵往後上拉（成人），對準耳道按壓測量", why:"每人換一個耳套", key:true},
+   {t:"脈搏：食指、中指、無名指放在橈動脈，測 1 分鐘", why:"不可用大拇指，因為大拇指本身有脈搏", key:true},
+   {t:"呼吸：手指不離開手腕，接著數胸部起伏 1 分鐘", why:"不讓個案察覺，避免刻意控制呼吸", key:true},
+   {t:"血壓：手臂與心臟同高，掌心朝上", why:""},
+   {t:"壓脈帶下緣在肘窩上 2–3 公分，鬆緊可放入一指", why:"太鬆數值偏高、太緊數值偏低", key:true},
+   {t:"按下電子血壓計，測量時請個案不說話、不移動", why:""},
+   {t:"告知個案結果，有異常立即回報", why:""}
+  ],
+  points:["脈搏、呼吸各測滿 1 分鐘，不要數 30 秒乘 2","測呼吸時手仍放在手腕上假裝測脈搏","血壓計壓脈帶的管線對準肱動脈"],
+  mistakes:["用大拇指測脈搏","讓個案知道正在數呼吸","壓脈帶綁太鬆或位置太低","沒有記錄或沒說要回報異常"],
+  table:{head:["項目","成人正常參考值"],rows:[["耳溫","35.8–38.0 °C"],["腋溫","34.7–37.3 °C"],["口溫","35.5–37.5 °C"],["脈搏","60–100 次/分"],["呼吸","12–20 次/分"],["血壓","收縮壓 < 120、舒張壓 < 80 mmHg"]]}
+ },
+ {no:"02", code:"17800-111402", mins:5, must:false, book:[37,42], name:"成人異物哽塞急救法", sub:"哈姆立克法", videos:[["示範影片","1aK2bukpciH7yeCKij8FmZqrLPFDBQQ5Z"]],
+  steps:[
+   {t:"發現個案雙手抓喉嚨，詢問：「你噎到了嗎？」", why:"哽塞的國際手勢", key:true},
+   {t:"個案能咳嗽、說話：鼓勵用力咳嗽，不要拍背", why:"屬輕度阻塞"},
+   {t:"不能說話、不能咳：告知「我要幫你」並大聲求救", why:"", key:true},
+   {t:"站在個案背後，一腳放在個案兩腳之間，呈弓箭步", why:"萬一昏倒可以支撐"},
+   {t:"一手握拳，拳眼（大拇指側）放在肚臍上方、劍突下方", why:"", key:true},
+   {t:"另一手包住拳頭，快速往內、往上擠壓", why:"", key:true},
+   {t:"重複擠壓，直到異物吐出或個案失去意識", why:""},
+   {t:"失去意識：讓個案平躺，打 119，立即開始 CPR", why:"每次打開呼吸道時看口腔，看到異物才取出", key:true}
+  ],
+  points:["位置口訣：肚臍上、劍突下","方向：往內＋往上（J 字形）","異物排出後仍要送醫檢查"],
+  mistakes:["拳頭位置壓在劍突或肋骨上","個案還能咳嗽時就用力擠壓","用手指盲目伸進口腔挖"],
+ },
+ {no:"03", code:"17800-111403", mins:6, must:false, book:[43,55], name:"成人心肺甦醒術", sub:"叫叫 CABD", videos:[["示範影片","1ickmq91H5LohBjiEChwsp7s2_G8ed5ti"]],
+  steps:[
+   {t:"確認環境安全", why:""},
+   {t:"叫：拍肩膀大聲問「先生／小姐，你還好嗎？」", why:"確認意識", key:true},
+   {t:"檢查呼吸：看胸部起伏 5–10 秒", why:"沒有呼吸或只有喘息式呼吸＝開始 CPR"},
+   {t:"叫：指定旁人「你幫我打 119，你去拿 AED」", why:"要指定特定的人", key:true},
+   {t:"C 壓胸：兩乳頭連線中點，掌根重疊、手指翹起", why:"", key:true},
+   {t:"手臂打直，身體垂直往下壓，深度 5–6 公分", why:"", key:true},
+   {t:"速率每分鐘 100–120 下，每次讓胸部完全回彈", why:"大聲數：1、2、3…30"},
+   {t:"A 打開呼吸道：壓額抬下巴", why:""},
+   {t:"B 人工呼吸 2 次，每次 1 秒，看到胸部起伏", why:"壓胸：吹氣＝30：2", key:true},
+   {t:"D AED 到達：打開電源，依語音貼上貼片", why:"右鎖骨下、左乳頭外側"},
+   {t:"分析與電擊時喊「大家離開」，不碰觸個案", why:"", key:true},
+   {t:"電擊後立即繼續壓胸，每 5 個循環（約 2 分鐘）再評估", why:""}
+  ],
+  points:["口訣：叫叫 CABD","壓胸中斷不要超過 10 秒","30：2 為一個循環，做 5 個循環"],
+  mistakes:["深度不夠或回彈不完全","手肘彎曲","沒有指定人打 119／拿 AED","吹氣太大力、太快"],
+ },
+ {no:"04", code:"17800-111404", mins:40, must:true, book:[56,74], name:"備餐、餵食、協助用藥", sub:"三讀五對、餵食姿勢", videos:[["示範影片","1nY9sk-NX9I-1LOOsPxTFVmfJAw2uAkl_"]],
+  steps:[
+   {t:"核對餐食：飲食種類符合個案（如軟質、糖尿病餐）", why:"", key:true},
+   {t:"協助個案坐起：床頭搖高 ≥ 45 度，最好坐正 90 度", why:"減少嗆到", key:true},
+   {t:"圍上餐巾，協助洗手", why:""},
+   {t:"試溫度：滴在手腕內側試溫", why:"不可用嘴吹或自己嚐", key:true},
+   {t:"坐在個案健側，從健側口角餵食", why:"偏癱個案患側沒有感覺", key:true},
+   {t:"每口約 1/3 湯匙，確認吞下再餵下一口", why:"請個案張口檢查"},
+   {t:"乾濕交替，邊餵邊說明食物內容", why:""},
+   {t:"用藥：三讀五對（個案、藥名、劑量、時間、途徑）", why:"拿藥時、倒藥時、放回時各讀一次", key:true},
+   {t:"藥物用溫開水服用", why:"不可用茶、果汁、牛奶", key:true},
+   {t:"確認個案吞下藥物", why:""},
+   {t:"餐後協助漱口、清潔口腔", why:""},
+   {t:"維持坐姿 30 分鐘後再躺下", why:"避免食物逆流、吸入性肺炎", key:true}
+  ],
+  points:["發生嗆咳：立即停止餵食，身體前傾，鼓勵咳嗽","邊餵邊觀察表情、吞嚥","不可催促個案"],
+  mistakes:["從患側餵食","沒試溫度或用嘴吹","藥配果汁、牛奶","吃完馬上讓個案躺平"],
+ },
+ {no:"05", code:"17800-111405", mins:40, must:false, book:[75,90], name:"洗頭、衣物更換", sub:"床上洗頭、脫健穿患", videos:[["示範影片","1nxVO-jYxIftMv2z4Q56xjbsUBSaS4JP9"]],
+  steps:[
+   {t:"關窗、調整室溫，避免著涼", why:""},
+   {t:"移去枕頭，肩下鋪防水中單，放好洗頭槽", why:"", key:false},
+   {t:"耳朵塞棉球、眼睛蓋小毛巾", why:"防止水流入", key:true},
+   {t:"試水溫：40–43 °C，在手腕內側試", why:"先問個案水溫是否可以", key:true},
+   {t:"沾濕頭髮，用指腹按摩頭皮", why:"不可用指甲抓", key:true},
+   {t:"沖洗乾淨，用毛巾擦乾後吹乾、梳整", why:"吹風機不要太靠近頭皮"},
+   {t:"更衣：脫衣先脫健側，再脫患側", why:"口訣：脫健穿患", key:true},
+   {t:"穿衣先穿患側，再穿健側", why:"", key:true},
+   {t:"整理衣服平整，無皺摺", why:"預防壓傷"}
+  ],
+  points:["口訣：脫健穿患（脫好手、穿壞手）","全程注意保暖與隱私，只露出必要部位","洗頭中觀察個案臉色與反應"],
+  mistakes:["脫穿順序顛倒","沒有試水溫","用指甲抓頭皮","耳朵沒塞棉球"],
+ },
+ {no:"06", code:"17800-111406", mins:25, must:false, book:[91,129], name:"會陰沖洗及尿管清潔", sub:"女性、男性各一支影片", videos:[["女性示範","1RW3TR95dWw7aoSnjpTFULkpVTdwPsJfd"],["男性示範","14nvn8gXJQ6JT_nWa2YBFR_jNMc4215dO"]],
+  steps:[
+   {t:"拉床簾、屏風，只露出會陰部", why:"維護隱私", key:true},
+   {t:"戴手套，個案屈膝仰臥，臀下放防水單與便盆", why:""},
+   {t:"試水溫（手腕內側），先沖大腿內側讓個案適應", why:"", key:true},
+   {t:"女性：由上往下（恥骨往肛門）沖洗，一支棉棒只擦一次", why:"避免肛門細菌帶到尿道", key:true},
+   {t:"男性：將包皮往後推，由尿道口往外環狀清潔", why:"", key:true},
+   {t:"男性：清潔後把包皮推回原位", why:"避免包皮嵌頓、水腫", key:true},
+   {t:"尿管清潔：由尿道口往外擦拭尿管", why:"一支棉棒用一次"},
+   {t:"擦乾，移除便盆，脫手套", why:""},
+   {t:"固定尿管：女性貼在大腿內側；男性貼在下腹部", why:"男性固定下腹部可避免陰莖陰囊交接處受壓", key:true},
+   {t:"尿袋低於膀胱，不可放地上，管路不扭折", why:"避免尿液逆流感染", key:true}
+  ],
+  points:["方向：從乾淨到不乾淨（由上往下、由內往外）","每一支棉棒只用一次就丟","檢查尿液顏色、量、有無沉澱並回報"],
+  mistakes:["由下往上來回擦","男性包皮沒推回","尿袋高於膀胱或放在地上","尿管固定位置錯誤"],
+ },
+ {no:"07", code:"17800-111407", mins:20, must:false, book:[130,144], name:"協助上下床及坐輪椅", sub:"床 ↔ 輪椅移位", videos:[["示範影片","13DTgQN7fDDuLjsLiBAwqMc2t-BRqPwzu"]],
+  steps:[
+   {t:"檢查輪椅：煞車、輪胎、腳踏板、安全帶", why:"", key:true},
+   {t:"輪椅放在個案健側，與床呈 30–45 度", why:"", key:true},
+   {t:"固定輪椅煞車、床煞車，收起腳踏板", why:"", key:true},
+   {t:"協助個案翻身側躺，再扶起坐在床緣", why:""},
+   {t:"坐在床緣先休息，詢問是否頭暈", why:"預防姿位性低血壓", key:true},
+   {t:"幫個案穿上防滑鞋，雙腳踩穩地面", why:""},
+   {t:"照服員雙腳張開、膝蓋抵住個案患側膝蓋", why:"防止患側膝蓋無力跪倒", key:true},
+   {t:"抱住個案腰部（或抓移位腰帶），數 1、2、3 一起站起", why:"利用身體力學：彎膝、背打直"},
+   {t:"以健側腳為軸心轉身，慢慢坐入輪椅", why:""},
+   {t:"協助坐到椅背深處，放下腳踏板，雙腳放上", why:""},
+   {t:"繫上安全帶，蓋被保暖", why:"", key:true},
+   {t:"回床時：輪椅一樣停在個案健側", why:"", key:true}
+  ],
+  points:["永遠記得：輪椅放健側","照服員用腿力不用腰力","移位前跟個案說明，邀請個案出力"],
+  mistakes:["忘記踩煞車","輪椅放在患側","沒有確認頭暈就站起","坐太淺、沒繫安全帶"],
+ }
+];
+
+// ===== 進度儲存（只存在這台手機瀏覽器）=====
+const store = {
+  get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+};
+// 每題的完整步驟 = 共通開始 + 本題操作 + 共通結束
+const allSteps = s => [...COMMON_START, ...s.steps, ...COMMON_END];
+const doneOf = s => store.get("done_"+s.no, []);
+
+const app = document.getElementById("app");
+const q = document.getElementById("q");
+const backBtn = document.getElementById("backBtn");
+const esc = t => String(t).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+// ===== 首頁：題目索引 =====
+function renderHome(){
+  backBtn.hidden = true;
+  app.innerHTML = `
+    <p class="intro">點選題目可以看操作步驟、勾選練習，並開啟 Google Drive 上的示範影片和攻略 PDF。</p>
+    <div class="list">${STATIONS.map(s=>{
+      const n=allSteps(s).length, d=doneOf(s).length;
+      return `<button class="card" data-go="${s.no}"><span class="no">${s.no}</span>
+        <span style="min-width:0"><b>${esc(s.name)}${s.must?' <span class="chip must">必考</span>':''}</b><span>${esc(s.sub)}・${s.mins} 分鐘</span></span>
+        <span class="prog">${d}/${n}</span></button>`}).join("")}</div>
+    <h3 class="sec-title">每一題都要做的開始與結束</h3>
+    <div class="common"><b>開始</b><ul>${COMMON_START.map(x=>`<li>${esc(x.t)}</li>`).join("")}</ul>
+      <b style="display:block;margin-top:10px">結束</b><ul>${COMMON_END.map(x=>`<li>${esc(x.t)}</li>`).join("")}</ul></div>
+    <div class="media" style="margin-top:16px">
+      <button class="btn p" data-go="00" style="border:0">📖 共通技術：洗手（攻略頁碼）</button>
+      <a class="btn p" href="${DRIVE(PDF_ID)}" target="_blank" rel="noopener">📕 完整攻略 PDF</a>
+      <a class="btn p" href="${FOLDER}" target="_blank" rel="noopener">📁 全部檔案</a></div>
+    <p class="foot">步驟內容依勞動部照顧服務員技能檢定術科常見流程整理，正式評分標準請以當年度技能檢定中心公告與攻略 PDF 為準。攻略頁碼對照《照顧服務員技能檢定學術科完全攻略》。勾選進度只存在這台裝置。</p>`;
+}
+
+// ===== 詳細頁：一題 =====
+let curTab = "steps";
+function renderStation(no){
+  backBtn.hidden = false;
+  if(no==="00") return renderHandwash();
+  const s = STATIONS.find(x=>x.no===no); if(!s) return renderHome();
+  app.innerHTML = `
+    <div class="d-head"><div class="no">第 ${s.no} 題</div><h2>${esc(s.name)}</h2><p>${esc(s.sub)}</p>
+      <div class="meta"><span class="chip">試題編號 ${s.code}</span><span class="chip">測試時間 ${s.mins} 分鐘</span>${s.must?'<span class="chip must">必考題</span>':''}<span class="chip">攻略第 ${s.book[0]}–${s.book[1]} 頁</span></div></div>
+    <div class="media">
+      ${s.videos.map(([l,id])=>`<a class="btn v" href="${DRIVE(id)}" target="_blank" rel="noopener">▶ ${esc(l)}</a>`).join("")}
+      <button class="btn p" data-tab="book" style="border:0">📖 攻略 PDF（第 ${s.book[0]}–${s.book[1]} 頁）</button>
+    </div>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" data-tab="steps" aria-selected="${curTab==="steps"}">操作步驟</button>
+      <button class="tab" role="tab" data-tab="tips" aria-selected="${curTab==="tips"}">重點與易錯</button>
+      <button class="tab" role="tab" data-tab="book" aria-selected="${curTab==="book"}">攻略頁面</button>
+    </div>
+    <div id="pane"></div>`;
+  renderPane(s);
+}
+
+function stepList(items, offset, done){
+  return `<ol class="steps">${items.map((x,i)=>{const idx=i+offset, ok=done.includes(idx);
+    return `<li class="step ${ok?"done":""} ${x.key?"key":""}" data-idx="${idx}">
+      <input type="checkbox" id="st${idx}" ${ok?"checked":""} aria-label="完成">
+      <label for="st${idx}" style="cursor:pointer"><span class="t">${esc(x.t)}</span>${x.why?`<span class="why">${esc(x.why)}</span>`:""}</label></li>`}).join("")}</ol>`;
+}
+
+function renderPane(s){
+  const pane = document.getElementById("pane");
+  if(curTab==="steps"){
+    const done = doneOf(s), n = allSteps(s).length, a=COMMON_START.length, b=a+s.steps.length;
+    pane.innerHTML = `
+      <div class="bar"><i style="width:${done.length/n*100}%"></i></div>
+      <div class="barrow"><span>已練習 ${done.length} / ${n} 步　<span style="color:var(--warn)">▍</span>紅線＝評分關鍵</span><button class="reset" id="rs">重新練習</button></div>
+      <div class="phase"><h3>準備工作</h3>${stepList(COMMON_START,0,done)}</div>
+      <div class="phase"><h3>操作流程</h3>${stepList(s.steps,a,done)}</div>
+      <div class="phase"><h3>結束工作</h3>${stepList(COMMON_END,b,done)}</div>`;
+    pane.querySelectorAll(".step input").forEach(cb=>cb.addEventListener("change",e=>{
+      const idx=+e.target.closest(".step").dataset.idx; let d=doneOf(s);
+      d = e.target.checked ? [...new Set([...d,idx])] : d.filter(x=>x!==idx);
+      store.set("done_"+s.no,d); renderPane(s);
+    }));
+    document.getElementById("rs").onclick=()=>{store.set("done_"+s.no,[]);renderPane(s)};
+  } else if(curTab==="book"){
+    pane.innerHTML = bookView(s);
+  } else {
+    pane.innerHTML = `
+      <div class="box"><h4>考試重點</h4><ul>${s.points.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
+      <div class="box w"><h4>常見扣分</h4><ul>${s.mistakes.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
+      ${s.table?`<div class="tbl"><table><thead><tr>${s.table.head.map(h=>`<th>${h}</th>`).join("")}</tr></thead>
+        <tbody>${s.table.rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`:""}`;
+  }
+}
+
+// ===== 攻略頁面：只顯示該題的開始頁到截止頁 =====
+function bookView(st){
+  // 公開版不放攻略掃描頁（版權），改成提示頁碼並連到 Drive 上的完整 PDF
+  return `<div class="box"><h4>請對照攻略書第 ${st.book[0]}–${st.book[1]} 頁</h4>
+    <p style="margin:0 0 10px">《照顧服務員技能檢定學術科完全攻略》的這一段是本題的文字說明，可搭配示範影片一起看。</p>
+    <a class="btn p" href="${DRIVE(PDF_ID)}" target="_blank" rel="noopener">📕 開啟完整攻略 PDF（Google Drive）</a></div>`;
+}
+function renderHandwash(){
+  const st = HANDWASH;
+  app.innerHTML = `<div class="d-head"><div class="no">每題共通</div><h2>${st.name}</h2>
+    <div class="meta"><span class="chip">攻略第 ${st.book[0]}–${st.book[1]} 頁</span></div></div>${bookView(st)}`;
+}
+
+// ===== 搜尋：跨所有題目的步驟、重點、易錯 =====
+function renderSearch(term){
+  backBtn.hidden = false;
+  const re = new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"gi");
+  const hl = t => esc(t).replace(new RegExp(esc(term).replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"gi"), m=>`<mark>${m}</mark>`);
+  const hits=[];
+  STATIONS.forEach(s=>{
+    [...s.steps.map(x=>x.t+(x.why?"｜"+x.why:"")), ...s.points, ...s.mistakes, s.name, s.sub].forEach(t=>{ if(re.test(t)) hits.push({s,t}); re.lastIndex=0; });
+  });
+  [...COMMON_START,...COMMON_END].forEach(x=>{ if(re.test(x.t)) hits.push({s:null,t:x.t}); re.lastIndex=0; });
+  app.innerHTML = `<p class="intro">「${esc(term)}」找到 ${hits.length} 筆</p>
+    <div class="list">${hits.map(h=>`<button class="hit" ${h.s?`data-go="${h.s.no}"`:""}><small>${h.s?h.s.no+" "+esc(h.s.name):"每題共通"}</small><br>${hl(h.t)}</button>`).join("") || `<p class="empty">找不到，試試其他關鍵字，例如「健側」「水溫」。</p>`}</div>`;
+}
+
+// ===== 路由（用 #s01 這種錨點，可分享直接開某一題）=====
+function route(){
+  const term = q.value.trim();
+  if(term) return renderSearch(term);
+  const m = location.hash.match(/^#s(\d\d)$/);
+  m ? renderStation(m[1]) : renderHome();
+  window.scrollTo(0,0);
+}
+app.addEventListener("click", e=>{
+  const go = e.target.closest("[data-go]"); if(go){ q.value=""; location.hash="s"+go.dataset.go; return; }
+  const img = e.target.closest(".pg img"); if(img){ img.parentElement.classList.toggle("zoom"); return; }
+  const tab = e.target.closest("[data-tab]");
+  if(tab){ curTab=tab.dataset.tab; const m=location.hash.match(/^#s(\d\d)$/); if(m) renderStation(m[1]); if(curTab==="book") document.querySelector(".tabs").scrollIntoView({behavior:"smooth"}); }
+});
+backBtn.onclick = ()=>{ q.value=""; if(location.hash) location.hash=""; else route(); };
+q.addEventListener("input", route);
+window.addEventListener("hashchange", route);
+route();
+</script>
+</body>
+</html>
